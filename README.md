@@ -10,3 +10,8 @@ Was originally a project for an advanced Java course that I continued to add to.
 * Updating Leaderboard
 * Player Name Changing
 * Food Smart Removal
+
+### How to Build
+1. Do this command
+2. Do this other command
+3. Congrats, you're running it
