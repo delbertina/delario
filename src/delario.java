@@ -249,6 +249,31 @@ public class delario extends Application{
             playerName = "Player1";
         }
 
+        public void updateMove{}{
+            //update movement independant of keypresses
+
+            //up and down
+
+            //if only pressing up
+
+                //and it wont go out of bounds
+
+            //else if only pressing down
+
+                //and it wont go out of bounds
+
+            //left and right
+
+            //if only pressing left
+
+                //and it wont go out of bounds
+
+            //else if only pressing right
+
+                //and it wont go out of bounds
+
+        }
+
         public void moveLeft(){
             //dont move out of bounds
             if(((ballRed.getCenterX()-ballRed.getRadius())-10)<0){
