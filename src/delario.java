@@ -240,6 +240,11 @@ public class delario extends Application{
         private boolean sizeShown;
         private String playerName;
 
+        private boolean isMovingUp;
+        private boolean isMovingDown;
+        private boolean isMovingLeft;
+        private boolean isMovingRight;
+
         public BallPane(){
             getChildren().addAll(ballRed,ballArea);
             ballArea.setFill(Color.WHITE);
@@ -247,31 +252,58 @@ public class delario extends Application{
 
             sizeShown = true;
             playerName = "Player1";
+
+            isMovingUp = false;
+            isMovingDown = false;
+            isMovingLeft = false;
+            isMovingRight = false;
         }
 
-        public void updateMove{}{
-            //update movement independant of keypresses
+        public void setMove(int direction, boolean forward){
+            switch (direction){
+                case 1: isMovingUp = forward
+                        break;
+                case 2: isMovingRight = forward
+                        break;
+                case 3: isMovingDown = forward
+                        break;
+                case 4: isMovingLeft = forward
+                        break;
+                default: break;
+            }
+        }
 
+        public void updateMove(){
+            //update movement independant of keypresses
+            private int centerX = ballRed.getCenterX();
+            private int centerY = ballRed.getCenterY();
+            private int radius = ballRed.getRadius();
             //up and down
 
             //if only pressing up
-
+            if(isMovingUp && !isMovingDown && (centerY-radius-10 > 0)){
                 //and it wont go out of bounds
-
+                ballRed.setCenterY(centerY-10);
+            }
             //else if only pressing down
-
+            else if(isMovingDown && !isMovingUp && (centerY+radius+10 < screenHeight)) {
                 //and it wont go out of bounds
-
+                ballRed.setCenterY(centerY+10);
+            }
             //left and right
 
             //if only pressing left
-
+            if(isMovingLeft && !isMovingRight && (centerX-radius-10 > 0)) {
                 //and it wont go out of bounds
-
+                ballRed.setCenterX(centerX-10);
+            }
             //else if only pressing right
-
+            if(isMovingRight && !isMovingLeft && (centerX+radius+10 < screenWidth)) {
                 //and it wont go out of bounds
-
+                ballRed.setCenterX(centerX+10);
+            }
+            checkFeed();
+            updateArea();
         }
 
         public void moveLeft(){
