@@ -298,7 +298,7 @@ public class delario extends Application{
                 ballRed.setCenterX(centerX-10);
             }
             //else if only pressing right
-            if(isMovingRight && !isMovingLeft && (centerX+radius+10 < screenWidth)) {
+            else if(isMovingRight && !isMovingLeft && (centerX+radius+10 < screenWidth)) {
                 //and it wont go out of bounds
                 ballRed.setCenterX(centerX+10);
             }
