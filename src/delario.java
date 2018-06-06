@@ -53,19 +53,39 @@ public class delario extends Application{
         scene.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.A || e.getCode() == KeyCode.LEFT){
                 //print("Left");
-                ballRedPane.moveLeft();
+                ballRedPane.setMove(4, true);
             }
             else if (e.getCode() == KeyCode.W || e.getCode() == KeyCode.UP){
                 //print("Up");
-                ballRedPane.moveUp();
+                ballRedPane.setMove(1, true);
             }
             else if (e.getCode() == KeyCode.D || e.getCode() == KeyCode.RIGHT){
                 //print("Right");
-                ballRedPane.moveRight();
+                ballRedPane.setMove(2, true);
             }
             else if (e.getCode() == KeyCode.S || e.getCode() == KeyCode.DOWN){
                 //print("Down");
-                ballRedPane.moveDown();
+                ballRedPane.setMove(3, true);
+                ballRedPane.requestFocus();
+            }
+        });
+
+        scene.setOnKeyReleased(e -> {
+            if (e.getCode() == KeyCode.A || e.getCode() == KeyCode.LEFT){
+                //print("Left");
+                ballRedPane.setMove(4,false);
+            }
+            else if (e.getCode() == KeyCode.W || e.getCode() == KeyCode.UP){
+                //print("Up");
+                ballRedPane.setMove(1, false);
+            }
+            else if (e.getCode() == KeyCode.D || e.getCode() == KeyCode.RIGHT){
+                //print("Right");
+                ballRedPane.setMove(2, false);
+            }
+            else if (e.getCode() == KeyCode.S || e.getCode() == KeyCode.DOWN){
+                //print("Down");
+                ballRedPane.setMove(3, false);
                 ballRedPane.requestFocus();
             }
         });
@@ -83,6 +103,14 @@ public class delario extends Application{
         }));
         twoSeconds.setCycleCount(Timeline.INDEFINITE);
         twoSeconds.play();
+
+        Timeline moveTick = new Timeline(new KeyFrame(Duration.millis(100), e -> {
+
+            ballRedPane.updateMove();
+
+        }));
+        moveTick.setCycleCount(Timeline.INDEFINITE);
+        moveTick.play();
 
         //make options window
         HBox options = new HBox(5);
@@ -261,13 +289,13 @@ public class delario extends Application{
 
         public void setMove(int direction, boolean forward){
             switch (direction){
-                case 1: isMovingUp = forward
+                case 1: isMovingUp = forward;
                         break;
-                case 2: isMovingRight = forward
+                case 2: isMovingRight = forward;
                         break;
-                case 3: isMovingDown = forward
+                case 3: isMovingDown = forward;
                         break;
-                case 4: isMovingLeft = forward
+                case 4: isMovingLeft = forward;
                         break;
                 default: break;
             }
@@ -275,9 +303,9 @@ public class delario extends Application{
 
         public void updateMove(){
             //update movement independant of keypresses
-            private int centerX = ballRed.getCenterX();
-            private int centerY = ballRed.getCenterY();
-            private int radius = ballRed.getRadius();
+            double centerX = ballRed.getCenterX();
+            double centerY = ballRed.getCenterY();
+            double radius = ballRed.getRadius();
             //up and down
 
             //if only pressing up
