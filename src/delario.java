@@ -334,46 +334,6 @@ public class delario extends Application{
             updateArea();
         }
 
-        public void moveLeft(){
-            //dont move out of bounds
-            if(((ballRed.getCenterX()-ballRed.getRadius())-10)<0){
-                ballRed.setCenterX(ballRed.getRadius());
-            }
-            else{ballRed.setCenterX(ballRed.getCenterX()-10);}
-            checkFeed();
-            updateArea();
-        }
-
-        public void moveUp(){
-            //dont move out of bounds
-            if(((ballRed.getCenterY()-ballRed.getRadius())-10)<0){
-                ballRed.setCenterY(ballRed.getRadius());
-            }
-            else{ballRed.setCenterY(ballRed.getCenterY()-10);}
-            checkFeed();
-            updateArea();
-        }
-
-        public void moveRight(){
-            //dont move out of bounds
-            if(((ballRed.getCenterX()+ballRed.getRadius())+10)>screenWidth){
-                ballRed.setCenterX(screenWidth - ballRed.getRadius());
-            }
-            else{ballRed.setCenterX(ballRed.getCenterX()+10);}
-            checkFeed();
-            updateArea();
-        }
-
-        public void moveDown(){
-            //dont move out of bounds
-            if(((ballRed.getCenterY()+ballRed.getRadius())+10)>screenHeight){
-                ballRed.setCenterY(screenHeight - ballRed.getRadius());
-            }
-            else{ballRed.setCenterY(ballRed.getCenterY()+10);}
-            checkFeed();
-            updateArea();
-        }
-
         public void spawnFood(){
             double tempx = randomDouble(0, screenWidth);
             double tempy = randomDouble(0, screenHeight);
