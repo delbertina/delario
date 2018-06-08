@@ -95,6 +95,7 @@ public class delario extends Application{
             ballRedPane.requestFocus();
         });
 
+        //spawn food
         Timeline twoSeconds = new Timeline(new KeyFrame(Duration.seconds(2), e -> {
 
             ballRedPane.spawnFoodSmart();
@@ -104,6 +105,7 @@ public class delario extends Application{
         twoSeconds.setCycleCount(Timeline.INDEFINITE);
         twoSeconds.play();
 
+        //update movement
         Timeline moveTick = new Timeline(new KeyFrame(Duration.millis(100), e -> {
 
             ballRedPane.updateMove();
@@ -111,6 +113,15 @@ public class delario extends Application{
         }));
         moveTick.setCycleCount(Timeline.INDEFINITE);
         moveTick.play();
+
+        //remove unreachable food
+        Timeline unreachTick = new Timeline(new KeyFrame(Duration.seconds(8), e -> {
+
+            ballRedPane.removeUnreach();
+
+        }));
+        unreachTick.setCycleCount(Timeline.INDEFINITE);
+        unreachTick.play();
 
         //make options window
         HBox options = new HBox(5);
@@ -335,8 +346,8 @@ public class delario extends Application{
         }
 
         public void spawnFood(){
-            double tempx = randomDouble(0, screenWidth);
-            double tempy = randomDouble(0, screenHeight);
+            double tempx = randomDouble(0.5*ballRed.getRadius(), screenWidth-(0.5*ballRed.getRadius()));
+            double tempy = randomDouble(0.5*ballRed.getRadius(), screenHeight-(0.5*ballRed.getRadius()));
 
             Circle tempFood = new Circle(tempx,tempy,5, randomColor());
             this.getChildren().add(tempFood);
@@ -344,8 +355,8 @@ public class delario extends Application{
         }
 
         public void spawnFood( int amount){
-            double[] tempx = randomDoubleArray(amount,0, screenWidth);
-            double[] tempy = randomDoubleArray(amount,0, screenHeight);
+            double[] tempx = randomDoubleArray(amount,0.5*ballRed.getRadius(), screenWidth-(0.5*ballRed.getRadius()));
+            double[] tempy = randomDoubleArray(amount,0.5*ballRed.getRadius(), screenHeight-(0.5*ballRed.getRadius()));
 
             for(int i = 0; i < amount; i++){
                 Circle tempFood = new Circle(tempx[i],tempy[i],5, randomColor());
@@ -370,12 +381,12 @@ public class delario extends Application{
             }
             else if(food.size()<=50){
                 spawnFood();
-                removeCorners();
+                removeUnreach();
             }
             //else do nothing
         }
 
-        public void removeCorners(){
+        public void removeUnreach(){
             double ballRad = ballRed.getRadius();
             double foodX;
             double foodY;
@@ -384,8 +395,7 @@ public class delario extends Application{
                 foodX = food.get(i).getCenterX();
                 foodY = food.get(i).getCenterY();
                 //if the food is in a corner
-                if((foodX<ballRad&&foodY<ballRad) || (foodX<ballRad&&foodY>(screenHeight-ballRad)) ||
-                        (foodX>(screenWidth-ballRad)&&foodY>(screenHeight-ballRad)) || (foodX>(screenWidth-ballRad)&&foodY<ballRad)){
+                if(foodX<(ballRad*0.5) || foodX>screenWidth-(ballRad*0.5) || foodY<(ballRad*0.5) || foodY>screenHeight-(ballRad*0.5)){
                     //remove and make a new one
                     getChildren().remove(i+2);
                     food.remove(i);
