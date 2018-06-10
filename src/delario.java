@@ -10,26 +10,22 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.effect.GaussianBlur;
-import javafx.scene.effect.Light;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import org.w3c.dom.css.RGBColor;
-
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class delario extends Application{
     public final int screenWidth = 800;
     public final int screenHeight = 550;
+    public final int speedMilis = 100;
+    public final int speedUnits = 10;
 
     private BallPane ballRedPane = new BallPane();
 
@@ -106,7 +102,7 @@ public class delario extends Application{
         twoSeconds.play();
 
         //update movement
-        Timeline moveTick = new Timeline(new KeyFrame(Duration.millis(100), e -> {
+        Timeline moveTick = new Timeline(new KeyFrame(Duration.millis(speedMilis), e -> {
 
             ballRedPane.updateMove();
 
@@ -317,8 +313,14 @@ public class delario extends Application{
             double centerX = ballRed.getCenterX();
             double centerY = ballRed.getCenterY();
             double radius = ballRed.getRadius();
-            //up and down
+            double moveUnit = 10.0;
 
+            //If diagonal, change move unit
+            if((isMovingDown || isMovingUp) && (isMovingLeft || isMovingRight)){
+                moveUnit = 7;
+            }
+
+            //up and down
             //if only pressing up
             if(isMovingUp && !isMovingDown && (centerY-radius-10 > 0)){
                 //and it wont go out of bounds
@@ -330,7 +332,6 @@ public class delario extends Application{
                 ballRed.setCenterY(centerY+10);
             }
             //left and right
-
             //if only pressing left
             if(isMovingLeft && !isMovingRight && (centerX-radius-10 > 0)) {
                 //and it wont go out of bounds
