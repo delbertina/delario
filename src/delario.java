@@ -27,6 +27,8 @@ public class delario extends Application{
     public final int speedMilis = 100;
     public final int speedUnits = 10;
 
+    public boolean isChristmas = false;
+
     private BallPane ballRedPane = new BallPane();
 
     @Override
@@ -63,6 +65,9 @@ public class delario extends Application{
                 //print("Down");
                 ballRedPane.setMove(3, true);
                 ballRedPane.requestFocus();
+            }
+            else if (e.getCode() == KeyCode.C) {
+                isChristmas = !isChristmas;
             }
         });
 
@@ -513,7 +518,28 @@ public class delario extends Application{
     }
 
     public Color randomColor(){
-        return Color.rgb(randomInt(0,255),randomInt(0,255),randomInt(0,255));
+        //preset red spectrum ArrayList
+
+        //preset orange spectrum ArrayList
+
+        //preset yellow spectrum ArrayList
+
+        //preset green spectrum ArrayList
+
+        //preset blue spectrum ArrayList
+
+        //preset purple spectrum ArrayList
+
+        //preset neutral spectrum ArrayList
+
+        //if christmas mode enabled
+        if(isChristmas){
+            return Color.rgb(255,0,0);
+        }
+        //else random
+        else{
+            return Color.rgb(randomInt(0, 255), randomInt(0, 255), randomInt(0, 255));
+        }
     }
 
     public void print(String message){
