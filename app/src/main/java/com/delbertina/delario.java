@@ -2,6 +2,8 @@
 //check it doesn't go out of bounds
 //define a pane class for displaying the ball
 
+package com.delbertina;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -21,7 +23,7 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class delario extends Application{
+public class delario extends Application {
     public final int screenWidth = 800;
     public final int screenHeight = 550;
     public final int speedMilis = 100;
